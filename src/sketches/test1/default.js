@@ -2,15 +2,21 @@ const CELL_WIDTH = 20;
 const CELL_HEIGHT = 20;
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
+const ITERATIONS = 2;
 
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   this.cells = [];
-  for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
-    for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
-      cells.push(new Cell(createVector(x, y, 0), createVector(20, 20, 0)));
-    }
-  }
+  // for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
+  //   for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
+  //     cells.push(new Cell(createVector(x, y, 0), createVector(20, 20, 0)));
+  //   }
+  // }
+  const c = new Cell(createVector(0, 0, 0), createVector(CANVAS_WIDTH, CANVAS_HEIGHT, 0));
+  this.cells = iterate(c);
+
+
+
   noStroke();
   this.cells.forEach(element => {
     element.draw();
@@ -58,6 +64,6 @@ class Cell {
 
   draw() {
     fill(this.colour);
-    rect(this.position.x, this.position.y, 20, 20);
+    rect(this.position.x, this.position.y, this.size.x, this.size.y);
   }
 }
