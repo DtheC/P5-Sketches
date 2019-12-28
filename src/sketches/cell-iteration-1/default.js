@@ -39,16 +39,3 @@ function iterate(cellToIterate) {
   if (cells.length == 0) cells.push(cellToIterate);
   return cells;
 }
-
-class Cell {
-  constructor(coordinates, size) {
-    this.position = coordinates;
-    this.size = size;
-    this.colour = color(Math.random() * 255);
-  }
-
-  draw() {
-    fill(this.colour);
-    rect(this.position.x, this.position.y, this.size.x, this.size.y);
-  }
-}
