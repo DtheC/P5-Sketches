@@ -2,7 +2,7 @@ const CELL_WIDTH = 20;
 const CELL_HEIGHT = 20;
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
-const ITERATIONS = 6;
+const ITERATIONS = 5;
 
 const NOISE_LENGTH = 100;
 
@@ -10,9 +10,10 @@ function setup() {
   noStroke();
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   this.colourScheme = ColorSchemeController.getSchemeWithXColours(5);
+  if (Math.random() > 0.5) this.colourScheme = this.colourScheme.reverse();
   this.cells = [];
   let col = color(this.colourScheme[0]);
-  col.setAlpha(0);
+  col.setAlpha(255);
   this.cells.push(new CellRound(createVector(0, 0, 0), createVector(CANVAS_WIDTH, CANVAS_HEIGHT, 0), col));
   this.cells[0].draw();
 
@@ -35,11 +36,11 @@ function drawCell(cellArray) {
 }
 
 function * iterateCells() {
-  for (let index = 1; index < ITERATIONS; index++) {
+  for (let index = 0; index < ITERATIONS; index++) {
     const oldCells = this.cells.slice(0);
     this.cells = [];
     for (let oldCellIndex = 0; oldCellIndex < oldCells.length; oldCellIndex++) {
-      const col = color(this.colourScheme[index-1]);
+      const col = color(this.colourScheme[index]);
       col.setAlpha(25);
       const newCells = iterate(oldCells[oldCellIndex], col);
       for (let newCellIndex = 0; newCellIndex < newCells.length; newCellIndex++) {
