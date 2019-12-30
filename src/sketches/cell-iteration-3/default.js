@@ -30,7 +30,6 @@ function drawCell(cellArray) {
 
 function * iterateCells() {
   for (let index = 1; index < ITERATIONS; index++) {
-    console.log(`Iteration ${index} in progress...`);
     const oldCells = this.cells.slice(0);
     this.cells = [];
     for (let oldCellIndex = 0; oldCellIndex < oldCells.length; oldCellIndex++) {
@@ -39,14 +38,18 @@ function * iterateCells() {
           drawCell([newCells[newCellIndex]]);
           this.cells.push(newCells[newCellIndex]);
       }
-      yield null;
+      if (oldCellIndex % 50 == 0) yield null;
+      // yield null;
     }
+    yield null;
   }
 }
 
 function iterate(cellToIterate, nextColour) {
   const cells = [];
   const split = (Math.round(Math.random() * 5)) * 2; // Even numbers only
+  if (split == 0) cellToIterate.isDone = true;
+  if (cellToIterate.isDone) return cellToIterate;
   const newCellWidth = cellToIterate.size.x / split;
   const newCellHeight = cellToIterate.size.y / split;
   const newCellSize = createVector(newCellWidth, newCellHeight, 0);
