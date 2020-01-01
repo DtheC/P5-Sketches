@@ -4,6 +4,11 @@ const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
 const ITERATIONS = 5;
 
+const btn = document.getElementById('btn1');
+  const chunks = [];
+
+  console.log(btn);
+
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   this.colourScheme = ColorSchemeController.getSchemeWithXColours(5);
@@ -12,6 +17,7 @@ function setup() {
 
   this.generator = iterateCells();
   this.oldStamp = 0;
+  record();
   requestAnimationFrame(runGen);
 }
 
@@ -61,4 +67,33 @@ function iterate(cellToIterate, nextColour) {
   }
   if (cells.length == 0) cells.push(cellToIterate);
   return cells;
+}
+
+function record() {
+  chunks.length = 0;
+  let stream = document.querySelector('canvas').captureStream(30),
+    recorder = new MediaRecorder(stream);
+  recorder.ondataavailable = e => {
+    if (e.data.size) {
+      chunks.push(e.data);
+    }
+  };
+  recorder.onstop = exportVideo;
+  btn.onclick = e => {
+    recorder.stop();
+    btn.textContent = 'start recording';
+    btn.onclick = record;
+  };
+  recorder.start();
+  btn.textContent = 'stop recording';
+}
+
+function exportVideo(e) {
+  var blob = new Blob(chunks);
+  var vid = document.createElement('video');
+  vid.id = 'recorded'
+  vid.controls = true;
+  vid.src = URL.createObjectURL(blob);
+  document.body.appendChild(vid);
+  vid.play();
 }
