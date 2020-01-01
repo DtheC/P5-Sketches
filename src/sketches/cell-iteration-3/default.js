@@ -89,11 +89,26 @@ function record() {
 }
 
 function exportVideo(e) {
-  var blob = new Blob(chunks);
-  var vid = document.createElement('video');
-  vid.id = 'recorded'
-  vid.controls = true;
-  vid.src = URL.createObjectURL(blob);
-  document.body.appendChild(vid);
-  vid.play();
+  // var blob = new Blob(chunks);
+  // var vid = document.createElement('video');
+  // vid.id = 'recorded'
+  // vid.controls = true;
+  // vid.src = URL.createObjectURL(blob);
+  // document.body.appendChild(vid);
+  // vid.play();
+  download();
+}
+
+function download() {
+  var blob = new Blob(chunks, {
+    type: 'video/webm'
+  });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  document.body.appendChild(a);
+  a.style = 'display: none';
+  a.href = url;
+  a.download = 'test.webm';
+  a.click();
+  window.URL.revokeObjectURL(url);
 }
