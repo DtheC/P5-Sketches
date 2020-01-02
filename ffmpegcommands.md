@@ -1,6 +1,9 @@
 # Extend last frame by 3 seconds.
 ffmpeg -i video.webm -vf tpad=stop_mode=clone:stop_duration=3 out.mp4
 
+# speed up if needed. CHange 0.5 to whatever the time needs to be divided by to fit
+ffmpeg -i input.mkv -filter:v "setpts=0.5*PTS" output.mkv
+
 
 
 ## Not needed:
