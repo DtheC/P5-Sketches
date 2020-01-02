@@ -5,7 +5,6 @@ const CANVAS_HEIGHT = 600;
 const ITERATIONS = 5;
 
 function setup() {
-  frameRate(30);
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   this.colourScheme = ColorSchemeController.getSchemeWithXColours(5);
   this.cells = [];

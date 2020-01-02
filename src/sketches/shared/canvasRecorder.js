@@ -8,7 +8,7 @@ class CanvasRecorder {
     console.log(this.doRecord);
     if (this.doRecord) requestAnimationFrame(() => this.startRecordOnCanvasLoad());
   }
-  
+
   startRecordOnCanvasLoad() {
     if (window.drawingContext != null) {
       this.record();
@@ -16,9 +16,8 @@ class CanvasRecorder {
       requestAnimationFrame(() => this.startRecordOnCanvasLoad());
     }
   }
-  
+
   record() {
-    console.log(document.querySelector('canvas').captureStream(30));
     this.chunks.length = 0;
     this.stream = document.querySelector('canvas').captureStream(30);
     this.recorder = new MediaRecorder(this.stream);
