@@ -5,11 +5,12 @@ const CANVAS_HEIGHT = 600;
 const ITERATIONS = 5;
 
 function setup() {
+  frameRate(30);
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   this.colourScheme = ColorSchemeController.getSchemeWithXColours(5);
   this.cells = [];
   this.cells.push(new Cell(createVector(0, 0, 0), createVector(CANVAS_WIDTH, CANVAS_HEIGHT, 0), color(this.colourScheme[0])));
-
+  
   this.generator = iterateCells();
   this.oldStamp = 0;
   requestAnimationFrame(runGen);
@@ -17,10 +18,12 @@ function setup() {
 
 function runGen(timeStamp) {
   if (timeStamp - this.oldStamp > 100) {
-    this.generator.next();
+    const val = this.generator.next();
     this.oldStamp = timeStamp;
+    if (val.done) canvasRecorder.done();
   }
   requestAnimationFrame(runGen);
+  // console.log(drawingContext);
 }
 
 function drawCell(cellArray) {
