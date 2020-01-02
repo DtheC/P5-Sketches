@@ -6,7 +6,8 @@ class ColourSchemes {
       ['#8e8741', '#659ebc', '#daad86', '#bd986b', '#fbeec1'],
       ['#fc4444', '#3feee7', '#55bdca', '#96caef', '#cafafe'],
       ['#1a1a1c', '#4e4e50', '#6f2232', '#950741', '#c3083f'],
-      ['#051e3e', '#251e3e', '#451e3e', '#651e3e', '#851e3e']
+      ['#051e3e', '#251e3e', '#451e3e', '#651e3e', '#851e3e'],
+      ['#0f4c81 ', '#082742', '#197ACF', '#11548F', '#0D3E69']
     ]
   }
   getSchemeWithXColours(amountOfColours) {
