@@ -29,6 +29,7 @@ class CellOutline extends Cell {
   }
 
   draw() {
+    // console.log(this.rotation);
     if (this.size.x > 4) {
       fill(0, 0);
       stroke(this.colour);
@@ -39,6 +40,30 @@ class CellOutline extends Cell {
       translate(this.position.x + (this.size.x / 2), this.position.y + (this.size.y / 2));
       rotate(this.rotation);
       rect(-this.size.x / 2, -this.size.y / 2, this.size.x, this.size.y);
+      line(-this.size.x / 2, -this.size.y / 2, this.size.x / 2, this.size.y / 2);
+      pop();
+    }
+  }
+}
+
+class CellStrikeThrough extends Cell {
+  initVariables() {
+    this.rotation = 0;
+  }
+
+  draw() {
+    strokeCap(SQUARE);
+    // console.log(this.rotation);
+    if (this.size.x > 4) {
+      fill(0, 0);
+      stroke(this.colour);
+      let strokeSize = this.size.x / 5;
+      if (strokeSize < 1) strokeSize = 1;
+      strokeWeight(strokeSize);
+      push();
+      translate(this.position.x + (this.size.x / 2), this.position.y + (this.size.y / 2));
+      rotate(this.rotation);
+      // rect(-this.size.x / 2, -this.size.y / 2, this.size.x, this.size.y);
       line(-this.size.x / 2, -this.size.y / 2, this.size.x / 2, this.size.y / 2);
       pop();
     }
