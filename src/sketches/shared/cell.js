@@ -69,3 +69,13 @@ class CellStrikeThrough extends Cell {
     }
   }
 }
+
+class Cell3D extends Cell {
+  draw() {
+    // this.colour.setAlpha(255);
+    fill(this.colour);
+    stroke(this.colour);
+    strokeWeight(10);
+    line(this.position.x, this.position.y, this.position.z, this.position.x + this.size.x, this.position.y + this.size.y, this.position.z + this.size.z);
+  }
+}
