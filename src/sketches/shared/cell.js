@@ -79,3 +79,15 @@ class Cell3D extends Cell {
     line(this.position.x, this.position.y, this.position.z, this.position.x + this.size.x, this.position.y + this.size.y, this.position.z + this.size.z);
   }
 }
+
+class CellBox3D extends Cell {
+  draw() {
+    // this.colour.setAlpha(200);
+    fill(this.colour);
+    noStroke();
+    push();
+    translate(this.position.x, this.position.y, this.position.z);
+    box(this.size.x, this.size.y, this.size.z);
+    pop();
+  }
+}
