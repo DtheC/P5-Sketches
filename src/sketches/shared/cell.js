@@ -84,10 +84,34 @@ class CellBox3D extends Cell {
   draw() {
     // this.colour.setAlpha(200);
     fill(this.colour);
-    noStroke();
+    // noStroke();
     push();
     translate(this.position.x, this.position.y, this.position.z);
     box(this.size.x, this.size.y, this.size.z);
+    pop();
+  }
+}
+
+class CellSphere3D extends Cell {
+  draw() {
+    // this.colour.setAlpha(200);
+    fill(this.colour);
+    // noStroke();
+    push();
+    translate(this.position.x, this.position.y, this.position.z);
+    sphere(this.size.x);
+    pop();
+  }
+}
+
+class CellCone3D extends Cell {
+  draw() {
+    // this.colour.setAlpha(200);
+    fill(this.colour);
+    // noStroke();
+    push();
+    translate(this.position.x, this.position.y, this.position.z);
+    cone(this.size.x, this.size.y);
     pop();
   }
 }
