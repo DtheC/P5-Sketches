@@ -115,3 +115,29 @@ class CellCone3D extends Cell {
     pop();
   }
 }
+
+class CellSplitTone extends Cell {
+  initVariables(colour1, colour2, split1, split2, rotation) {
+    this.colour = colour1;
+    this.colourBase = colour2;
+    this.split1 = this.size.x * split1;
+    this.split2 = this.size.x * split2;
+    this.rotation = rotation;
+  }
+
+  draw() {
+    push();
+    translate(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2, this.position.x);
+    rotate(this.rotation);
+    fill(this.colourBase);
+    rect(-this.size.x/2, -this.size.y/2, this.size.x, this.size.y);
+    fill(this.colour);
+    beginShape();
+    vertex((-this.size.x / 2) + this.split1, -this.size.y / 2);
+    vertex(this.size.x / 2, -this.size.y / 2);
+    vertex(this.size.x / 2, this.size.y / 2);
+    vertex((-this.size.x /2) + this.split2, this.size.y / 2);
+    endShape();
+    pop();
+  }
+}
