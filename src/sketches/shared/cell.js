@@ -141,3 +141,41 @@ class CellSplitTone extends Cell {
     pop();
   }
 }
+
+class CellSplitToneFade extends Cell {
+  initVariables(colours, split1, split2, rotation) {
+    this.colours = colours;
+    this.split1 = this.size.x * split1;
+    this.split2 = this.size.x * split2;
+    this.rotation = rotation;
+    // if (this.colourBase) this.colourBase.setAlpha(20);
+    // if (this.colour) this.colour.setAlpha(20);
+  }
+
+  draw() {
+    push();
+    translate(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2);
+    rotate(this.rotation);
+    // fill(this.colours[0]);
+    // fill(random(0, 255));
+    // rect(-this.size.x/2, -this.size.y/2, this.size.x, this.size.y);
+    fill(this.colours[1]);
+    this.drawWithOffset(0);
+    fill(this.colours[2]);
+    this.drawWithOffset(4);
+    fill(this.colours[3]);
+    this.drawWithOffset(8);
+    fill(this.colours[4]);
+    this.drawWithOffset(12);
+    pop();
+  }
+
+  drawWithOffset(offset) {
+    beginShape();
+    vertex((-this.size.x / 2) + this.split1 + offset, -this.size.y / 2);
+    vertex(this.size.x / 2, -this.size.y / 2);
+    vertex(this.size.x / 2, this.size.y / 2);
+    vertex((-this.size.x /2) + this.split2 + offset, this.size.y / 2);
+    endShape();
+  }
+}
