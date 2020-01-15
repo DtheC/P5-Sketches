@@ -1,8 +1,7 @@
-const CELL_WIDTH = 50;
-const CELL_HEIGHT = 50;
+const CELL_WIDTH = 100;
+const CELL_HEIGHT = 10;
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
-const CELL_COUNT = 20;
 
 // const ITERATIONS = 4;
 
@@ -29,7 +28,7 @@ function setup() {
   while (this.c1 == this.c2) {
     this.c2 = random(this.colourScheme);
   }
-
+  let count = 0;
   for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
     for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
       const noise1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
@@ -41,43 +40,51 @@ function setup() {
       const cell = new CellSplitTone(createVector(x, y), createVector(CELL_WIDTH, CELL_HEIGHT), random(this.colourScheme));
       const split1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
       const split2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
-      cell.initVariables(this.c1, this.c2, split1, split2, random(this.rotations));
+      if (count % 2 === 0) {
+        cell.initVariables(this.c1, this.c2, split1, split2, random(this.rotations));
+      } else {
+        cell.initVariables(this.c2, this.c1, split1, split2, random(this.rotations));
+      }
       this.cells.push(cell);
       cell.draw();
     }
+    count++;
   }
 }
 
 function draw() {
-  for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
-    for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
-      const split1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
-      const split2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
-
-      let x1 = x / CELL_WIDTH;
-      let y1 = y / CELL_HEIGHT;
-      // console.log(y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1);
-      this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].initVariables(this.c1, this.c2, split1, split2, this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].rotation);
-      this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].draw();
-    }
-  }
   // for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
   //   for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
-  //     const noise1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
-  //     const noise2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
-  //     // const c1 = this.colourScheme[floor(scale(noise1, 0, 1, 0, this.colourScheme.length))];
-  //     // const c2 = this.colourScheme[floor(scale(noise2, 0, 1, 0, this.colourScheme.length))];
-  //     // const c1 = this.colourScheme[x/CANVAS_WIDTH % this.colourScheme.length];
-  //     // const c2 = this.colourScheme[y/CANVAS_WIDTH % this.colourScheme.length];
-  //     const cell = new CellSplitTone(createVector(x, y), createVector(CELL_WIDTH, CELL_HEIGHT), random(this.colourScheme));
   //     const split1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
   //     const split2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
-  //     cell.initVariables(this.c1, this.c2, split1, split2, random(this.rotations));
-  //     // this.cells.push(cell);
-  //     cell.draw();
+
+  //     let x1 = x / CELL_WIDTH;
+  //     let y1 = y / CELL_HEIGHT;
+  //     // console.log(y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1);
+  //     this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].initVariables(this.c1, this.c2, split1, split2, this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].rotation);
+  //     this.cells[y1 * (CANVAS_WIDTH / CELL_WIDTH) + x1].draw();
   //   }
   // }
+  let count = 0;
+  for (let x = 0; x < CANVAS_WIDTH; x += CELL_WIDTH) {
+    for (let y = 0; y < CANVAS_HEIGHT; y += CELL_HEIGHT) {
+      const noise1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
+      const noise2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
+      const cell = new CellSplitTone(createVector(x, y), createVector(CELL_WIDTH, CELL_HEIGHT), random(this.colourScheme));
+      const split1 = noise((x + this.time) * NOISE_LENGTH, (y + this.time) * NOISE_LENGTH);
+      const split2 = noise((x + this.time) * NOISE_LENGTH, (y + this.time + NOISE_OFFSET) * NOISE_LENGTH);
+      if (count % 2 === 0) {
+        cell.initVariables(this.c1, this.c2, split1, split2, random(this.rotations));
+      } else {
+        cell.initVariables(this.c2, this.c1, split1, split2, random(this.rotations));
+      }
+      // this.cells.push(cell);
+      cell.draw();
+    }
+    count++;
+  }
   time+= 1;
+  if (frameCount > 1000) canvasRecorder.done();
 }
 
   // this.cells = [];
