@@ -106,6 +106,7 @@ function draw() {
   //   this.r.draw();
   //   pop();
   // }
+  if (frameCount > 300) canvasRecorder.done();
 }
 
 // function mouseClicked() {
